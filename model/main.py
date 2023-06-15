@@ -7,22 +7,6 @@ from sklearn.metrics import classification_report, accuracy_score
 # os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 
-# def append_label_as_text(dataframe):
-#     dataframe.loc[dataframe['sentiment'] == 1, 'text'] = dataframe.loc[dataframe['sentiment'] == 1].apply(
-#             lambda row: row[1] + ' [SEP] a meme with happiness emotion', axis=1)
-#     dataframe.loc[dataframe['sentiment'] == 2, 'text'] = dataframe.loc[dataframe['sentiment'] == 2].apply(
-#             lambda row: row[1] + ' [SEP] a meme with love emotion', axis=1)
-#     dataframe.loc[dataframe['sentiment'] == 3, 'text'] = dataframe.loc[dataframe['sentiment'] == 3].apply(
-#             lambda row: row[1] + ' [SEP] a meme with angry emotion', axis=1)
-#     dataframe.loc[dataframe['sentiment'] == 4, 'text'] = dataframe.loc[dataframe['sentiment'] == 4].apply(
-#             lambda row: row[1] + ' [SEP] a meme with sorrow emotion', axis=1)
-#     dataframe.loc[dataframe['sentiment'] == 5, 'text'] = dataframe.loc[dataframe['sentiment'] == 5].apply(
-#             lambda row: row[1] + ' [SEP] a meme with fear emotion', axis=1)
-#     dataframe.loc[dataframe['sentiment'] == 6, 'text'] = dataframe.loc[dataframe['sentiment'] == 6].apply(
-#             lambda row: row[1] + ' [SEP] a meme with hate emotion', axis=1)
-#     dataframe.loc[dataframe['sentiment'] == 7, 'text'] = dataframe.loc[dataframe['sentiment'] == 7].apply(
-#             lambda row: row[1] + ' [SEP] a meme with surprise emotion', axis=1)
-
 
 def change_label_as_text(dataframe, label_map):
     dataframe['label_to_text'] = dataframe['sentiment'].map(label_map)
@@ -81,9 +65,9 @@ def main(dir_path, train_model=0, task=7):
         # append_label_as_text(train)
         train['text'] = train['text'].apply(lambda x: x.replace('\n', ' ').replace('\r', ' '))
 
-        # train['target_text'] = train['target_text'].apply(lambda x: x.replace(';', ' '))
-        # train['source_text'] = train['source_text'].apply(lambda x: x.replace(';', ' '))
-        # train['text'] = train['text'] + ' [SEP] ' + train['source_text'] + ' [SEP] ' + train['target_text']
+        train['target_text'] = train['target_text'].apply(lambda x: x.replace(';', ' '))
+        train['source_text'] = train['source_text'].apply(lambda x: x.replace(';', ' '))
+        train['text'] = train['text'] + ' [SEP] ' + train['source_text'] + ' [SEP] ' + train['target_text']
         # print(train['text'])
         train = train.sample(frac=1.0)
         train = train.reset_index(drop=True)
@@ -93,9 +77,9 @@ def main(dir_path, train_model=0, task=7):
         # append_label_as_text(valid)
         valid['text'] = valid['text'].apply(lambda x: x.replace('\n', ' ').replace('\r', ' '))
 
-        # valid['target_text'] = valid['target_text'].apply(lambda x: x.replace(';', ' '))
-        # valid['source_text'] = valid['source_text'].apply(lambda x: x.replace(';', ' '))
-        # valid['text'] = valid['text'] + ' [SEP] ' + valid['source_text'] + ' [SEP] ' + valid['target_text']
+        valid['target_text'] = valid['target_text'].apply(lambda x: x.replace(';', ' '))
+        valid['source_text'] = valid['source_text'].apply(lambda x: x.replace(';', ' '))
+        valid['text'] = valid['text'] + ' [SEP] ' + valid['source_text'] + ' [SEP] ' + valid['target_text']
 
         valid = valid.sample(frac=1.0)
         valid = valid.reset_index(drop=True)
@@ -149,9 +133,9 @@ def main(dir_path, train_model=0, task=7):
         test = pd.read_csv(dir_path + '/test.csv', header='infer', keep_default_na=False, encoding='ISO-8859-1')
         test['text'] = test['text'].apply(lambda x: x.replace('\n', ' ').replace('\r', ' '))
 
-        # test['target_text'] = test['target_text'].apply(lambda x: x.replace(';', ' '))
-        # test['source_text'] = test['source_text'].apply(lambda x: x.replace(';', ' '))
-        # test['text'] = test['text'] + ' [SEP] ' + test['source_text'] + ' [SEP] ' + test['target_text']
+        test['target_text'] = test['target_text'].apply(lambda x: x.replace(';', ' '))
+        test['source_text'] = test['source_text'].apply(lambda x: x.replace(';', ' '))
+        test['text'] = test['text'] + ' [SEP] ' + test['source_text'] + ' [SEP] ' + test['target_text']
 
         test = test.sample(frac=1.0)
         test = test.reset_index(drop=True)
