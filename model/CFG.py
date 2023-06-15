@@ -20,9 +20,9 @@ class CFG:
     text_encoder_model = "distilbert-base-uncased"
     text_embedding = 768
     text_tokenizer = "distilbert-base-uncased"
-    label_tokenizer = "bert-base-uncased"
-    label_encoder_model = "bert-base-uncased"
-    cat_embedding = 2816
+    # label_tokenizer = "bert-base-uncased"
+    # label_encoder_model = "bert-base-uncased"
+    # cat_embedding = 2816
     max_length = 200
 
     pretrained = True
